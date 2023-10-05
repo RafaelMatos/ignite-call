@@ -10,6 +10,9 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   - Typescript
   - Ignite-ui
 
+## Atualizações 🔃
+  - Adicionado a configuração pageExtensions do Next.js
+
 ## Como utilizar
 - Clone o projeto do repositório
 ```
