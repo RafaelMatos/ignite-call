@@ -15,6 +15,8 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   - React.js
   - Typescript
   - Ignite-ui
+  - Zod
+  - React Hook Form
 
 ## Atualizações 🔃
   - Adicionado a configuração pageExtensions do Next.js
