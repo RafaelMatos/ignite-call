@@ -14,6 +14,7 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 ## Atualizações 🔃
   - Adicionado a configuração pageExtensions do Next.js
   - Começando a construção do componente Home
+  - Adicionando componente ClaimUsernameForm à Home
 
 ## Como utilizar
 - Clone o projeto do repositório
