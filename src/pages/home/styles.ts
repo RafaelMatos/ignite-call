@@ -1,4 +1,5 @@
 import { Heading, Text, styled } from '@ignite-ui/react'
+import imgBg from './../../assets/gridMask.png'
 
 export const Container = styled('div', {
   maxWidth: 'calc(100vw - (100vw - 1160px) / 2)',
@@ -18,6 +19,8 @@ export const Container = styled('div', {
 export const Hero = styled('div', {
   maxWidth: 480,
   padding: '0 $10',
+  backgroundImage: `url(${imgBg.src})`,
+  backgroundSize: 'cover',
   [`> ${Heading}`]: {
     '@media(max-width:600px)': {
       fontSize: '$6xl',
