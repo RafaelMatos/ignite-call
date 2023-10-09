@@ -3,7 +3,12 @@ Projeto em desenvolvimento no 6º e ultimo módulo da trilha React do curso Igni
 
 Utilizando nosso Design System, vamos criar uma aplicação completa até o deploy. Abordaremos rotas autenticadas no Next.js, integração com Google Calendar, validações e muito mais!
 
-<img src='../ignite-call/public/tela.png' alt='print da tela da aplicação Coffee Delivery'>
+<img src='./src/assets/tela.gif' alt='gif da tela da aplicação Ignite Call'>
+
+<details>
+    <summary>Responsivo</summary>
+    <img src='./src/assets/responsive.png' alt='print da tela da aplicação Ignite Call'>
+</details>
 
 ## Tecnologias usadas ⚙
   - Next.js
@@ -15,6 +20,7 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   - Adicionado a configuração pageExtensions do Next.js
   - Começando a construção do componente Home
   - Adicionando componente ClaimUsernameForm à Home
+  - Adicionada validação com zod em ClaimUsernameForm
 
 ## Como utilizar
 - Clone o projeto do repositório
