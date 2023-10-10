@@ -15,12 +15,15 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   - React.js
   - Typescript
   - Ignite-ui
+  - Zod
+  - React Hook Form
 
 ## Atualizações 🔃
-  - Adicionado a configuração pageExtensions do Next.js
-  - Começando a construção do componente Home
-  - Adicionando componente ClaimUsernameForm à Home
-  - Adicionada validação com zod em ClaimUsernameForm
+  - Adicionado a configuração pageExtensions do Next.js;
+  - Começando a construção do componente Home;
+  - Adicionando componente ClaimUsernameForm à Home;
+  - Adicionada validação com zod em ClaimUsernameForm;
+  - Construindo página de registro;
 
 ## Como utilizar
 - Clone o projeto do repositório
