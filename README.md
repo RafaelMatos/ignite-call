@@ -42,7 +42,8 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 </details>
   
   - Salvando usuário no banco utilizando o Prisma;
-  - Utilizando o Nookies para pegar nos cookies os dados de usuário salvo.
+  - Utilizando o Nookies para pegar nos cookies os dados de usuário salvo;
+  - Construindo pagina de conexão com Google Calendar.
 
 ## Como utilizar
 
