@@ -22,6 +22,7 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 - Prisma
 - Axios
 - Nookies
+- NextAuth.js
 
 ## Atualizações 🔃
 
@@ -38,12 +39,15 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
       - Construindo página de registro;
 
+      - Salvando usuário no banco utilizando o Prisma;
+
+      - Utilizando o Nookies para pegar nos cookies os dados de usuário salvo;
+
     
 </details>
   
-  - Salvando usuário no banco utilizando o Prisma;
-  - Utilizando o Nookies para pegar nos cookies os dados de usuário salvo;
-  - Construindo pagina de conexão com Google Calendar.
+  - Construindo página de conexão com Google Calendar;
+  - Fazendo autenticação oAuth2 para acessar APIs do Google  utilizando o NextAuth.js.
 
 ## Como utilizar
 
