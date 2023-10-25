@@ -1,17 +1,54 @@
 import { Adapter } from 'next-auth/adapters'
 import { prisma } from '../prisma'
-import { use } from 'react'
+import { destroyCookie, parseCookies } from 'nookies'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export function MyAdapter(): Adapter {
+export function PrismaAdapter(
+  req: NextApiRequest,
+  res: NextApiResponse,
+): Adapter {
   return {
-    async createUser(user) {},
+    async createUser(user) {
+      const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
+
+      if (!userIdOnCookies) {
+        throw new Error('User ID not found on cookies')
+      }
+
+      const prismaUser = await prisma.user.update({
+        where: {
+          id: userIdOnCookies,
+        },
+        data: {
+          name: user.name,
+          email: user.email,
+          avatar_url: user.avatar_url,
+        },
+      })
+
+      destroyCookie({ res }, '@ignitecall:userId', { path: '/' })
+
+      return {
+        id: prismaUser.id,
+        name: user.name,
+        username: user.username,
+        email: user.email!,
+        emailVerified: null,
+        avatar_url: user.avatar_url!,
+      }
+    },
 
     async getUser(id) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
       })
+
+      if (!user) {
+        return null
+      }
+
       return {
         id: user.id,
         name: user.name,
@@ -22,11 +59,16 @@ export function MyAdapter(): Adapter {
       }
     },
     async getUserByEmail(email) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           email,
         },
       })
+
+      if (!user) {
+        return null
+      }
+
       return {
         id: user.id,
         name: user.name,
@@ -37,7 +79,7 @@ export function MyAdapter(): Adapter {
       }
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      const { user } = await prisma.account.findUniqueOrThrow({
+      const account = await prisma.account.findUnique({
         where: {
           provider_provider_account_id: {
             provider,
@@ -48,6 +90,12 @@ export function MyAdapter(): Adapter {
           user: true,
         },
       })
+
+      if (!account) {
+        return null
+      }
+
+      const { user } = account
 
       return {
         id: user.id,
@@ -114,7 +162,7 @@ export function MyAdapter(): Adapter {
       }
     },
     async getSessionAndUser(sessionToken) {
-      const { user, ...session } = await prisma.session.findUniqueOrThrow({
+      const prismaSession = await prisma.session.findUnique({
         where: {
           session_token: sessionToken,
         },
@@ -122,6 +170,11 @@ export function MyAdapter(): Adapter {
           user: true,
         },
       })
+      if (!prismaSession) {
+        return null
+      }
+
+      const { user, ...session } = prismaSession
 
       return {
         user: {
@@ -156,7 +209,13 @@ export function MyAdapter(): Adapter {
         userId: prismaSession.user_id,
       }
     },
-    // async deleteSession(sessionToken) {}, //Não é obrigatório criar e não terá na aplicação
+    async deleteSession(sessionToken) {
+      await prisma.session.delete({
+        where: {
+          session_token: sessionToken,
+        },
+      })
+    },
     // async createVerificationToken({ identifier, expires, token }) {},//Não é obrigatório criar e não terá na aplicação
     // async useVerificationToken({ identifier, token }) {},//Não é obrigatório criar e não terá na aplicação
   }
