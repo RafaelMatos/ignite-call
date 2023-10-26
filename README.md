@@ -43,11 +43,14 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
       - Utilizando o Nookies para pegar nos cookies os dados de usuário salvo;
 
+      - Construindo página de conexão com Google Calendar;
+
     
 </details>
   
-  - Construindo página de conexão com Google Calendar;
-  - Fazendo autenticação oAuth2 para acessar APIs do Google  utilizando o NextAuth.js.
+  - Fazendo autenticação oAuth2 para acessar APIs do Google  utilizando o NextAuth.js;
+  - Criado um novo Prisma Adapter para o NextAuth;
+  - Finalizado autenticação com Google, com permissão ao Calendar.
 
 ## Como utilizar
 
