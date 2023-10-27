@@ -15,7 +15,7 @@ import {
   IntervalItem,
   IntervalsContainer,
 } from './styles'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { getWeekDays } from '@/utils/get-week-days'
 
@@ -26,6 +26,7 @@ export default function TimeIntervals() {
     control,
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm({
     defaultValues: {
@@ -45,6 +46,8 @@ export default function TimeIntervals() {
     name: 'intervals',
   })
 
+  const intervals = watch('intervals')
+
   const weekDays = getWeekDays()
   return (
     <Container>
@@ -60,10 +63,24 @@ export default function TimeIntervals() {
       <IntervalBox as="form">
         <IntervalsContainer>
           {fields.map((field, index) => {
+            const isInputDisabled = intervals[index].enabled === false
             return (
               <IntervalItem key={field.id}>
                 <IntervalDay>
-                  <Checkbox />
+                  <Controller
+                    name={`intervals.${index}.enabled`}
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Checkbox
+                          onCheckedChange={(checked) => {
+                            field.onChange(checked === true)
+                          }}
+                          checked={field.value}
+                        />
+                      )
+                    }}
+                  />
                   <Text size="sm">{weekDays[field.weekDay]}</Text>
                 </IntervalDay>
                 <IntervalInputs>
@@ -72,6 +89,7 @@ export default function TimeIntervals() {
                     type="time"
                     step={60}
                     crossOrigin=""
+                    disabled={isInputDisabled}
                     placeholder="17h"
                     {...register(`intervals.${index}.startTime`)}
                   ></TextInput>
@@ -80,6 +98,7 @@ export default function TimeIntervals() {
                     type="time"
                     step={60}
                     crossOrigin=""
+                    disabled={isInputDisabled}
                     placeholder="18h"
                     {...register(`intervals.${index}.endTime`)}
                   ></TextInput>
