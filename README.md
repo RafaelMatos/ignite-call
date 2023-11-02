@@ -45,12 +45,19 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
       - Construindo página de conexão com Google Calendar;
 
+      - Fazendo autenticação oAuth2 para acessar APIs do Google  utilizando o NextAuth.js;
+
+      - Criado um novo Prisma Adapter para o NextAuth;
+
+      - Finalizado autenticação com Google, com permissão ao Calendar.
+
     
 </details>
   
-  - Fazendo autenticação oAuth2 para acessar APIs do Google  utilizando o NextAuth.js;
-  - Criado um novo Prisma Adapter para o NextAuth;
-  - Finalizado autenticação com Google, com permissão ao Calendar.
+  
+  - Criada página de intervalo de horários;
+  - Adicionada validação do checkbox.
+  - Adicionada validação do input de horario inicial e final.
 
 ## Como utilizar
 
