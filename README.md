@@ -56,8 +56,9 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   
   
   - Criada página de intervalo de horários;
-  - Adicionada validação do checkbox.
-  - Adicionada validação do input de horario inicial e final.
+  - Adicionada validação do checkbox;
+  - Adicionada validação do input de horario inicial e final;
+  - Salvando intervalo de horário em banco de dados.
 
 ## Como utilizar
 
