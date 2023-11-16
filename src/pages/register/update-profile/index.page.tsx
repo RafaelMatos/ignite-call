@@ -12,16 +12,17 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container, Header } from '../styles'
-import { FormAnnotation, ProfileBox } from './styles'
+import { CountCaracteres, FormAnnotation, ProfileBox } from './styles'
 import { useSession } from 'next-auth/react'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth/next'
 import { GetServerSideProps } from 'next/types'
 import { api } from '../../../lib/axios'
 import { useRouter } from 'next/router'
+import { ChangeEvent, useState } from 'react'
 
 const updateProfileSchema = z.object({
-  bio: z.string(),
+  bio: z.string().max(300),
 })
 
 type UpdateProfileData = z.infer<typeof updateProfileSchema>
@@ -37,6 +38,7 @@ export default function UpdateProfile() {
 
   const session = useSession()
   const router = useRouter()
+  const [bioCharactersCount, setBioCharactersCount] = useState(0)
 
   async function handleUpdateProfile(data: UpdateProfileData) {
     await api.put('/users/profile', {
@@ -44,6 +46,11 @@ export default function UpdateProfile() {
     })
 
     await router.push(`/schedule/${session.data?.user.username}`)
+  }
+
+  function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    const count = event.target.value.length
+    setBioCharactersCount(count)
   }
 
   return (
@@ -63,10 +70,18 @@ export default function UpdateProfile() {
         </label>
         <label>
           <Text size="sm">Sobre você</Text>
-          <TextArea placeholder="Seu nome" {...register('bio')} />
           <FormAnnotation size="sm">
             Fale um pouco sobre você. Isto será exibido em sua página pessoal.
           </FormAnnotation>
+          <TextArea
+            placeholder="Seu nome"
+            maxLength={300}
+            {...register('bio')}
+            onChange={handleChange}
+          />
+          <CountCaracteres size="xs" color="$ignite300">
+            {bioCharactersCount}/300
+          </CountCaracteres>
         </label>
 
         <Button type="submit">

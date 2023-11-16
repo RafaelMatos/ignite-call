@@ -13,4 +13,12 @@ export const ProfileBox = styled(Box, {
   },
 })
 
-export const FormAnnotation = styled(Text, {})
+export const FormAnnotation = styled(Text, {
+  color: '$gray400',
+})
+
+export const CountCaracteres = styled(Text, {
+  color: '$gray400',
+  alignSelf: 'flex-end',
+  marginRight: '$4',
+})
