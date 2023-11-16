@@ -22,7 +22,7 @@ import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 
 const updateProfileSchema = z.object({
-  bio: z.string().max(300),
+  bio: z.string().max(250),
 })
 
 type UpdateProfileData = z.infer<typeof updateProfileSchema>
@@ -66,6 +66,7 @@ export default function UpdateProfile() {
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text size="sm">Foto de perfil</Text>
+
           <Avatar src={session.data?.user.avatar_url} />
         </label>
         <label>
@@ -74,13 +75,16 @@ export default function UpdateProfile() {
             Fale um pouco sobre você. Isto será exibido em sua página pessoal.
           </FormAnnotation>
           <TextArea
-            placeholder="Seu nome"
-            maxLength={300}
+            placeholder="Quem eu sou?"
+            maxLength={250}
             {...register('bio')}
             onChange={handleChange}
           />
-          <CountCaracteres size="xs" color="$ignite300">
-            {bioCharactersCount}/300
+          <CountCaracteres
+            size="xs"
+            css={{ color: bioCharactersCount < 250 ? '$gray400' : '#f75a68' }}
+          >
+            {bioCharactersCount}/250
           </CountCaracteres>
         </label>
 
