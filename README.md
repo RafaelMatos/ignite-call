@@ -51,14 +51,22 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
       - Finalizado autenticação com Google, com permissão ao Calendar.
 
+      - Criada página de intervalo de horários;
+
+      - Adicionada validação do checkbox;
+
+      - Adicionada validação do input de horario inicial e final;
+
+      - Salvando intervalo de horário em banco de dados.
+
     
 </details>
+
+  - Criada pagina de atualização do usuário;
+
+  - Salvando bio do usuário no banco de dados.
   
   
-  - Criada página de intervalo de horários;
-  - Adicionada validação do checkbox;
-  - Adicionada validação do input de horario inicial e final;
-  - Salvando intervalo de horário em banco de dados.
 
 ## Como utilizar
 
