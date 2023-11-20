@@ -57,14 +57,18 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
       - Adicionada validação do input de horario inicial e final;
 
-      - Salvando intervalo de horário em banco de dados.
+      - Salvando intervalo de horário em banco de dados;
+
+      - Criada pagina de atualização do usuário;
+
+      - Salvando bio do usuário no banco de dados.
 
     
 </details>
 
-  - Criada pagina de atualização do usuário;
+  - Criando página de agendamento;
 
-  - Salvando bio do usuário no banco de dados.
+  - Estrutura de Calendario e TimePicker criados.
   
   
 
