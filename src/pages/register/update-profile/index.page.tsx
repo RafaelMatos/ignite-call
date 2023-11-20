@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container, Header } from '../styles'
-import { CountCaracteres, FormAnnotation, ProfileBox } from './styles'
+import { CountCharacter, FormAnnotation, ProfileBox } from './styles'
 import { useSession } from 'next-auth/react'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth/next'
@@ -39,6 +39,7 @@ export default function UpdateProfile() {
   const session = useSession()
   const router = useRouter()
   const [bioCharactersCount, setBioCharactersCount] = useState(0)
+  const isMaxCharacter = bioCharactersCount === 250
 
   async function handleUpdateProfile(data: UpdateProfileData) {
     await api.put('/users/profile', {
@@ -80,12 +81,9 @@ export default function UpdateProfile() {
             {...register('bio')}
             onChange={handleChange}
           />
-          <CountCaracteres
-            size="xs"
-            css={{ color: bioCharactersCount < 250 ? '$gray400' : '#f75a68' }}
-          >
+          <CountCharacter size="xs" isMaxCharacters={isMaxCharacter}>
             {bioCharactersCount}/250
-          </CountCaracteres>
+          </CountCharacter>
         </label>
 
         <Button type="submit">

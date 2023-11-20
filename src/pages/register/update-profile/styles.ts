@@ -17,7 +17,18 @@ export const FormAnnotation = styled(Text, {
   color: '$gray400',
 })
 
-export const CountCaracteres = styled(Text, {
+export const CountCharacter = styled(Text, {
   alignSelf: 'flex-end',
   marginRight: '$4',
+
+  variants: {
+    isMaxCharacters: {
+      true: {
+        color: '#f75a68',
+      },
+      false: {
+        color: '$gray400',
+      },
+    },
+  },
 })
