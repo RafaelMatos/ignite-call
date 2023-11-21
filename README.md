@@ -68,7 +68,11 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
   - Criando página de agendamento;
 
-  - Estrutura de Calendario e TimePicker criados.
+  - Estrutura de Calendario e TimePicker criados;
+
+  - Criada página de confirmação;
+
+  - Criado formulário de confirmação.
   
   
 
