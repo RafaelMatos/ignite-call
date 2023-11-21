@@ -23,6 +23,7 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 - Axios
 - Nookies
 - NextAuth.js
+- DayJs
 
 ## Atualizações 🔃
 
@@ -73,6 +74,10 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
   - Criada página de confirmação;
 
   - Criado formulário de confirmação.
+
+  - Calendário alimentado com datas reais.
+
+  <img src='./src/assets/update.gif' alt='gif da tela da aplicação Ignite Call'>
   
   
 
