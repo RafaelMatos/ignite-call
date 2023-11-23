@@ -33,7 +33,12 @@ export const CalendarActions = styled('div', {
       height: '$5',
     },
 
-    '&:hover': {
+    '&:disabled': {
+      color: '$gray500',
+      cursor: 'default',
+    },
+
+    '&:not(:disabled):hover': {
       color: '$gray100',
     },
     '&:focus': {
