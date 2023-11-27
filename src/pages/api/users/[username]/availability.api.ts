@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { prisma } from '@/lib/prisma'
+import { time } from 'console'
 import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -72,9 +73,13 @@ export default async function handle(
   })
 
   const availableTimes = possibleTimes.filter((time) => {
-    return !bloockedTimes.some(
+    const isTimeBlocked = bloockedTimes.some(
       (bloockedTime) => bloockedTime.date.getHours() === time,
     )
+
+    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+
+    return !isTimeBlocked && !isTimeInPast
   })
 
   return res.json({ possibleTimes, availableTimes })
