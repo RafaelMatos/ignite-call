@@ -75,7 +75,11 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
   - Criado formulário de confirmação.
 
-  - Calendário alimentado com datas reais.
+  - Calendário alimentado com datas reais;
+
+  - Bloqueando datas sem horário livre;
+
+  - Mudança de banco de dados para o Mysql.
 
   <img src='./src/assets/update.gif' alt='gif da tela da aplicação Ignite Call'>
   
@@ -100,10 +104,12 @@ cd ignite-call
 ```
 npm install
 ```
-- Inicializa o Prisma
+- Criar arquivo .env com as chaves necessarias( seguir arquivo .envExample)
+
+- Inicializa o Prisma( Usar banco de dados de sua preferencia, no exemplo é usado o mysql)
 
 ```
-npx prisma init --datasource-provider sqlite
+npx prisma init --datasource-provider mysql
 ```
 - Realiza as migrations do Prisma
 
