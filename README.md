@@ -79,7 +79,11 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
   - Bloqueando datas sem horário livre;
 
-  - Mudança de banco de dados para o Mysql.
+  - Mudança de banco de dados para o Mysql;
+
+  - Calendario redirecionando para página de confirmação de agendamento;
+
+  -Salvando agendamento no banco de dados.
 
   <img src='./src/assets/update.gif' alt='gif da tela da aplicação Ignite Call'>
   
