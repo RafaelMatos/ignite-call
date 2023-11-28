@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { number } from 'zod'
 
 export default async function handle(
   req: NextApiRequest,
