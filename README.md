@@ -84,7 +84,9 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 
   - Calendario redirecionando para página de confirmação de agendamento;
 
-  - Salvando agendamento no banco de dados.
+  - Salvando agendamento no banco de dados;
+
+  - Criando evento no Google Calendar do usuário.
 
   <img src='./src/assets/update.gif' alt='gif da tela da aplicação Ignite Call'>
   
