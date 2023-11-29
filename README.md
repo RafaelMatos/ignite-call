@@ -24,6 +24,7 @@ Utilizando nosso Design System, vamos criar uma aplicação completa até o depl
 - Nookies
 - NextAuth.js
 - DayJs
+- Google Apis
 
 ## Atualizações 🔃
 
