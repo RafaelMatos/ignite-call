@@ -33,14 +33,7 @@ export default async function handle(
 
   const userTimeZone = new Date().getTimezoneOffset() / 60
 
-  const currentHourWithTimeZone = dayjs(new Date()).subtract(
-    userTimeZone,
-    'hour',
-  )
-
-  const isPastDate = referenceDate
-    .endOf('day')
-    .isBefore(currentHourWithTimeZone)
+  const isPastDate = referenceDate.endOf('day').isBefore(new Date())
 
   if (isPastDate) {
     return res.json({ possibleTimes: [], availableTimes: [] })
@@ -81,12 +74,16 @@ export default async function handle(
     },
   })
 
+  const currentHourWithTimeZone = dayjs(new Date()).add(userTimeZone, 'hour')
+
   const availableTimes = possibleTimes.filter((time) => {
     const isTimeBlocked = bloockedTimes.some(
       (bloockedTime) => bloockedTime.date.getHours() === time,
     )
 
-    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+    const isTimeInPast = referenceDate
+      .set('hour', time)
+      .isBefore(currentHourWithTimeZone)
 
     return !isTimeBlocked && !isTimeInPast
   })
