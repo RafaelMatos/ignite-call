@@ -33,7 +33,10 @@ export default async function handle(
 
   const userTimeZone = new Date().getTimezoneOffset() / 60
 
-  const currentHourWithTimeZone = dayjs(new Date()).add(userTimeZone, 'hour')
+  const currentHourWithTimeZone = dayjs(new Date()).subtract(
+    userTimeZone,
+    'hour',
+  )
 
   const isPastDate = referenceDate
     .endOf('day')
