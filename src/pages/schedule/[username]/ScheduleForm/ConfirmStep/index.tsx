@@ -37,6 +37,8 @@ export function ConfirmStep({
 
   const username = String(router.query.username)
 
+  const userTimeZone = new Date().getTimezoneOffset() / 60
+
   async function handleConfirmScheduling(data: ConfirmFormData) {
     const { name, email, observations } = data
     await api.post(`/users/${username}/schedule`, {
@@ -44,6 +46,7 @@ export function ConfirmStep({
       email,
       observations,
       date: schedulingDate,
+      userTimeZone,
     })
 
     onCancelConfirmation()
