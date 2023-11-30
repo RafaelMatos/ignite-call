@@ -32,10 +32,12 @@ export default async function handle(
   const referenceDate = dayjs(String(date))
 
   const userTimeZone = new Date().getTimezoneOffset() / 60
+
+  const currentHourWithTimeZone = dayjs(new Date()).add(userTimeZone, 'hour')
+
   const isPastDate = referenceDate
     .endOf('day')
-    .subtract(userTimeZone, 'hour')
-    .isBefore(new Date())
+    .isBefore(currentHourWithTimeZone)
 
   if (isPastDate) {
     return res.json({ possibleTimes: [], availableTimes: [] })
