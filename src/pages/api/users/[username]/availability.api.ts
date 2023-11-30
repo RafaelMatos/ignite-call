@@ -74,7 +74,10 @@ export default async function handle(
     },
   })
 
-  const currentHourWithTimeZone = dayjs(new Date()).add(userTimeZone, 'hour')
+  const currentHourWithTimeZone = dayjs(new Date()).subtract(
+    userTimeZone,
+    'hour',
+  )
 
   const availableTimes = possibleTimes.filter((time) => {
     const isTimeBlocked = bloockedTimes.some(
