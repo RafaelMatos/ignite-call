@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { api } from './../../lib/axios'
 import { AxiosError } from 'axios'
+import { NextSeo } from 'next-seo'
 
 const registerFormSchema = z.object({
   username: z
@@ -28,7 +29,7 @@ export default function Register() {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
@@ -58,46 +59,50 @@ export default function Register() {
     }
   }, [router.query?.username, setValue])
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
-        </Text>
-        <MultiStep size={4} currentStep={1} />
-      </Header>
-      <Form as="form" onSubmit={handleSubmit(handleRegister)}>
-        <label>
-          <Text size="sm">Nome de usuário</Text>
-          <TextInput
-            prefix="ignite.com/"
-            crossOrigin=""
-            placeholder="Seu usuário"
-            {...register('username')}
-          />
+    <>
+      <NextSeo title="Crie uma conta | Ignite Call" />
 
-          {errors.username && (
-            <FormError size="sm">{errors.username.message}</FormError>
-          )}
-        </label>
-        <label>
-          <Text size="sm">Nome completo</Text>
-          <TextInput
-            crossOrigin=""
-            placeholder="Seu nome"
-            {...register('name')}
-          />
-          {errors.name && (
-            <FormError size="sm">{errors.name.message}</FormError>
-          )}
-        </label>
+      <Container>
+        <Header>
+          <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
+          </Text>
+          <MultiStep size={4} currentStep={1} />
+        </Header>
+        <Form as="form" onSubmit={handleSubmit(handleRegister)}>
+          <label>
+            <Text size="sm">Nome de usuário</Text>
+            <TextInput
+              prefix="ignite.com/"
+              crossOrigin=""
+              placeholder="Seu usuário"
+              {...register('username')}
+            />
 
-        <Button type="submit">
-          Próximo passo
-          <ArrowRight />
-        </Button>
-      </Form>
-    </Container>
+            {errors.username && (
+              <FormError size="sm">{errors.username.message}</FormError>
+            )}
+          </label>
+          <label>
+            <Text size="sm">Nome completo</Text>
+            <TextInput
+              crossOrigin=""
+              placeholder="Seu nome"
+              {...register('name')}
+            />
+            {errors.name && (
+              <FormError size="sm">{errors.name.message}</FormError>
+            )}
+          </label>
+
+          <Button type="submit">
+            Próximo passo
+            <ArrowRight />
+          </Button>
+        </Form>
+      </Container>
+    </>
   )
 }

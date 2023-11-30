@@ -20,6 +20,7 @@ import { GetServerSideProps } from 'next/types'
 import { api } from '../../../lib/axios'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
+import { NextSeo } from 'next-seo'
 
 const updateProfileSchema = z.object({
   bio: z.string().max(250),
@@ -28,11 +29,7 @@ const updateProfileSchema = z.object({
 type UpdateProfileData = z.infer<typeof updateProfileSchema>
 
 export default function UpdateProfile() {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<UpdateProfileData>({
+  const { register, handleSubmit } = useForm<UpdateProfileData>({
     resolver: zodResolver(updateProfileSchema),
   })
 
@@ -55,43 +52,46 @@ export default function UpdateProfile() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
-        </Text>
-        <MultiStep size={4} currentStep={4} />
-      </Header>
-      <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
-        <label>
-          <Text size="sm">Foto de perfil</Text>
+    <>
+      <NextSeo title="Atualize seu perfil | Ignite Call" noindex />
+      <Container>
+        <Header>
+          <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
+          </Text>
+          <MultiStep size={4} currentStep={4} />
+        </Header>
+        <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
+          <label>
+            <Text size="sm">Foto de perfil</Text>
 
-          <Avatar src={session.data?.user.avatar_url} />
-        </label>
-        <label>
-          <Text size="sm">Sobre você</Text>
-          <FormAnnotation size="sm">
-            Fale um pouco sobre você. Isto será exibido em sua página pessoal.
-          </FormAnnotation>
-          <TextArea
-            placeholder="Quem eu sou?"
-            maxLength={250}
-            {...register('bio')}
-            onChange={handleChange}
-          />
-          <CountCharacter size="xs" isMaxCharacters={isMaxCharacter}>
-            {bioCharactersCount}/250
-          </CountCharacter>
-        </label>
+            <Avatar src={session.data?.user.avatar_url} />
+          </label>
+          <label>
+            <Text size="sm">Sobre você</Text>
+            <FormAnnotation size="sm">
+              Fale um pouco sobre você. Isto será exibido em sua página pessoal.
+            </FormAnnotation>
+            <TextArea
+              placeholder="Quem eu sou?"
+              maxLength={250}
+              {...register('bio')}
+              onChange={handleChange}
+            />
+            <CountCharacter size="xs" isMaxCharacters={isMaxCharacter}>
+              {bioCharactersCount}/250
+            </CountCharacter>
+          </label>
 
-        <Button type="submit">
-          Finalizar
-          <ArrowRight />
-        </Button>
-      </ProfileBox>
-    </Container>
+          <Button type="submit">
+            Finalizar
+            <ArrowRight />
+          </Button>
+        </ProfileBox>
+      </Container>
+    </>
   )
 }
 
