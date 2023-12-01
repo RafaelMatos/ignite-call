@@ -14,7 +14,9 @@ import { useQuery } from '@tanstack/react-query'
 
 interface Availability {
   possibleTimes: number[]
-  availableTimes: number[]
+  blockedTimes: { date: Date }[]
+  startHour: number
+  endHour: number
 }
 
 interface CalendarStepProps {
@@ -52,9 +54,23 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
     enabled: !!selectedDate,
   })
 
-  const unavailableTimes = availability?.availableTimes.map((availableTime) => {
-    return dayjs(availableTime).get('hour')
+  const { possibleTimes, blockedTimes } = availability || {}
+
+  const availableTimes = possibleTimes?.filter((time) => {
+    const isTimeBlocked = blockedTimes?.some(
+      (blockedTime) => dayjs(blockedTime.date).hour() === time,
+    )
+
+    const isTimeInPast = dayjs(selectedDate)
+      .set('hour', time)
+      .isBefore(new Date())
+
+    return !isTimeBlocked && !isTimeInPast
   })
+
+  // const unavailableTimes = availability?.availableTimes.map((availableTime) => {
+  //   return dayjs(availableTime).get('hour')
+  // })
 
   function handleSelectTime(hour: number) {
     const dateWithTime = dayjs(selectedDate)
@@ -74,17 +90,17 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
             {weekDay} <span> {describedDate}</span>
           </TimePickerHeader>
           <TimePickerList>
-            {availability?.possibleTimes.map((hour) => {
-              const disableTimePickerItem =
-                unavailableTimes?.includes(hour) ||
-                dayjs(selectedDate).set('hour', hour).isBefore(new Date()) ||
-                !availability.availableTimes.includes(hour)
+            {possibleTimes?.map((hour) => {
+              // const disableTimePickerItem =
+              //   unavailableTimes?.includes(hour) ||
+              //   dayjs(selectedDate).set('hour', hour).isBefore(new Date()) ||
+              //   !availability.availableTimes.includes(hour)
 
               return (
                 <TimePickerItem
                   key={hour}
                   onClick={() => handleSelectTime(hour)}
-                  disabled={disableTimePickerItem}
+                  disabled={!availableTimes?.includes(hour)}
                 >
                   {String(hour).padStart(2, '0')}:00h
                 </TimePickerItem>
