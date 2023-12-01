@@ -75,15 +75,16 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
           </TimePickerHeader>
           <TimePickerList>
             {availability?.possibleTimes.map((hour) => {
+              const disableTimePickerItem =
+                unavailableTimes?.includes(hour) ||
+                dayjs(selectedDate).set('hour', hour).isBefore(new Date()) ||
+                !availability.availableTimes.includes(hour)
+
               return (
                 <TimePickerItem
                   key={hour}
                   onClick={() => handleSelectTime(hour)}
-                  // disabled={!availability.availableTimes.includes(hour)}
-                  disabled={
-                    unavailableTimes?.includes(hour) ||
-                    dayjs(selectedDate).set('hour', hour).isBefore(new Date())
-                  }
+                  disabled={disableTimePickerItem}
                 >
                   {String(hour).padStart(2, '0')}:00h
                 </TimePickerItem>

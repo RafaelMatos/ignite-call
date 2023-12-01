@@ -31,8 +31,6 @@ export default async function handle(
 
   const referenceDate = dayjs(String(date))
 
-  const userTimeZone = new Date().getTimezoneOffset() / 60
-
   const isPastDate = referenceDate.endOf('day').isBefore(new Date())
 
   if (isPastDate) {
@@ -61,7 +59,7 @@ export default async function handle(
     },
   )
 
-  const bloockedTimes = await prisma.scheduling.findMany({
+  const blockedTimes = await prisma.scheduling.findMany({
     select: {
       date: true,
     },
@@ -75,8 +73,8 @@ export default async function handle(
   })
 
   const availableTimes = possibleTimes.filter((time) => {
-    const isTimeBlocked = bloockedTimes.some(
-      (bloockedTime) => bloockedTime.date.getHours() === time,
+    const isTimeBlocked = blockedTimes.some(
+      (blockedTime) => blockedTime.date.getHours() === time,
     )
 
     const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
