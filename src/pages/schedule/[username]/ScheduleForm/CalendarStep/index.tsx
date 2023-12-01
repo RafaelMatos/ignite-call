@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query'
 
 interface Availability {
   possibleTimes: number[]
-  blockedTimes: { date: Date }[]
+  blockedTimes: { date: string }[]
   startHour: number
   endHour: number
 }
