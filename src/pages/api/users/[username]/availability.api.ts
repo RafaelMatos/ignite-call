@@ -74,19 +74,12 @@ export default async function handle(
     },
   })
 
-  const currentHourWithTimeZone = dayjs(new Date()).subtract(
-    userTimeZone,
-    'hour',
-  )
-
   const availableTimes = possibleTimes.filter((time) => {
     const isTimeBlocked = bloockedTimes.some(
       (bloockedTime) => bloockedTime.date.getHours() === time,
     )
 
-    const isTimeInPast = referenceDate
-      .set('hour', time)
-      .isBefore(currentHourWithTimeZone)
+    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
 
     return !isTimeBlocked && !isTimeInPast
   })

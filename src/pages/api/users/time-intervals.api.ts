@@ -17,7 +17,6 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  console.log('Chegou aquiiiii!!!')
   if (req.method !== 'POST') {
     return res.status(405).end()
   }
