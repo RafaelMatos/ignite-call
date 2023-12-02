@@ -25,7 +25,6 @@ interface CalendarStepProps {
 
 export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-  // const [availability, setAvailability] = useState<Availability | null>(null)
 
   const router = useRouter()
 
@@ -61,16 +60,9 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
       (blockedTime) => dayjs(blockedTime.date).hour() === time,
     )
 
-    const isTimeInPast = dayjs(selectedDate)
-      .set('hour', time)
-      .isBefore(new Date())
-
+    const isTimeInPast = dayjs(selectedDate).set('hour', time).isBefore(dayjs())
     return !isTimeBlocked && !isTimeInPast
   })
-
-  // const unavailableTimes = availability?.availableTimes.map((availableTime) => {
-  //   return dayjs(availableTime).get('hour')
-  // })
 
   function handleSelectTime(hour: number) {
     const dateWithTime = dayjs(selectedDate)
@@ -91,11 +83,6 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
           </TimePickerHeader>
           <TimePickerList>
             {possibleTimes?.map((hour) => {
-              // const disableTimePickerItem =
-              //   unavailableTimes?.includes(hour) ||
-              //   dayjs(selectedDate).set('hour', hour).isBefore(new Date()) ||
-              //   !availability.availableTimes.includes(hour)
-
               return (
                 <TimePickerItem
                   key={hour}
