@@ -14,9 +14,7 @@ import { useQuery } from '@tanstack/react-query'
 
 interface Availability {
   possibleTimes: number[]
-  blockedTimes: { date: string }[]
-  startHour: number
-  endHour: number
+  blockedTimes: { date: Date }[]
 }
 
 interface CalendarStepProps {
@@ -53,14 +51,21 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
     enabled: !!selectedDate,
   })
 
-  const { possibleTimes, blockedTimes } = availability || {}
+  const possibleTimes = availability?.possibleTimes
+  const blockedTimes = availability?.blockedTimes
+
+  const referenceDate = dayjs(String(selectedDateWithoutTime))
 
   const availableTimes = possibleTimes?.filter((time) => {
     const isTimeBlocked = blockedTimes?.some(
-      (blockedTime) => dayjs(blockedTime.date).hour() === time,
+      (blockedTime) => new Date(blockedTime.date).getHours() === time,
     )
+    console.log({ blockedTimes, time })
 
-    const isTimeInPast = dayjs(selectedDate).set('hour', time).isBefore(dayjs())
+    // const isTimeInPast = dayjs(selectedDate).set('hour', time).isBefore(dayjs())
+
+    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+
     return !isTimeBlocked && !isTimeInPast
   })
 
@@ -82,7 +87,7 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
             {weekDay} <span> {describedDate}</span>
           </TimePickerHeader>
           <TimePickerList>
-            {possibleTimes?.map((hour) => {
+            {availability?.possibleTimes?.map((hour) => {
               return (
                 <TimePickerItem
                   key={hour}
