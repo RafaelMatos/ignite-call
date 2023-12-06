@@ -1,5 +1,6 @@
 import { Calendar } from '@/Components/Calendar'
 import {
+  CloseTimePicker,
   Container,
   SkeletonTimePickerItem,
   TimePicker,
@@ -12,6 +13,7 @@ import dayjs from 'dayjs'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
+import { X } from 'phosphor-react'
 
 interface Availability {
   possibleTimes: number[]
@@ -87,6 +89,9 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
         <TimePicker>
           <TimePickerHeader>
             {weekDay} <span> {describedDate}</span>
+            <CloseTimePicker onClick={() => setSelectedDate(null)}>
+              <X />
+            </CloseTimePicker>
           </TimePickerHeader>
           <TimePickerList>
             {loadingTimeIntervals ? (

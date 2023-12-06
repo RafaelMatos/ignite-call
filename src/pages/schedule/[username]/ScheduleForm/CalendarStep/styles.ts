@@ -34,6 +34,10 @@ export const TimePicker = styled('div', {
   bottom: 0,
   right: 0,
   width: 280,
+  '@media(max-width:900px)': {
+    backgroundColor: '$gray800',
+    borderRadius: '$sm',
+  },
 })
 export const TimePickerHeader = styled(Text, {
   textTransform: 'capitalize',
@@ -42,6 +46,26 @@ export const TimePickerHeader = styled(Text, {
     color: '$gray200',
   },
 })
+
+export const CloseTimePicker = styled('button', {
+  all: 'unset',
+  display: 'none',
+  position: 'absolute',
+  backgroundColor: 'transparent',
+  top: '0.5rem',
+  right: '0.5rem',
+  transition: '0.5s',
+
+  '&:hover': {
+    scale: '1.1',
+    color: '$gray300',
+  },
+
+  '@media(max-width:900px)': {
+    display: 'block',
+  },
+})
+
 export const TimePickerList = styled('div', {
   marginTop: '$3',
   display: 'grid',

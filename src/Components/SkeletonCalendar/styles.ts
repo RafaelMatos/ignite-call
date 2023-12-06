@@ -26,12 +26,10 @@ export const SkeletonCalendarBody = styled('table', {
 
 export const SkeletonCalendarDay = styled('div', {
   animation: `${skeletonAnimation} 1300ms ease-in-out infinite`,
-  backgroundColor: '$ignite600',
   backgroundImage: 'linear-gradient(90deg, $gray800,$gray700,$gray800)',
-  display: 'flex',
   backgroundSize: '200px 100%',
   aspectRatio: '1/1',
   textAlign: 'center',
-  cursor: 'pointer',
+  cursor: 'default',
   borderRadius: '$sm',
 })
