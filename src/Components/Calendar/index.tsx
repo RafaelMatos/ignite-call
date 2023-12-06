@@ -13,6 +13,7 @@ import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { api } from '@/lib/axios'
+import { SkeletonCalendar } from '../SkeletonCalendar'
 
 interface CalendarWeek {
   week: number
@@ -35,7 +36,9 @@ interface BlockedDates {
 }
 
 export function Calendar({ onDateSelected }: CalendarProps) {
+  const [loadingCalendar, setLoadingCalendar] = useState(true)
   const [currentDate, setCurrentDate] = useState(() => {
+    setLoadingCalendar(false)
     return dayjs().set('date', 1)
   })
 
@@ -69,12 +72,14 @@ export function Calendar({ onDateSelected }: CalendarProps) {
       currentDate.get('month'),
     ],
     queryFn: async () => {
+      setLoadingCalendar(true)
       const response = await api.get(`/users/${username}/blocked-dates`, {
         params: {
           year: currentDate.get('year'),
           month: currentDate.get('month') + 1,
         },
       })
+      setLoadingCalendar(false)
       return response.data
     },
   })
@@ -146,53 +151,59 @@ export function Calendar({ onDateSelected }: CalendarProps) {
   }, [currentDate, blockedDates])
 
   return (
-    <CalendarContainer>
-      <CalendarHeader>
-        <CalendarTitle>
-          {currentMonth} <span>{currentYear}</span>
-        </CalendarTitle>
-        <CalendarActions>
-          <button
-            onClick={handlePreviousMonth}
-            disabled={disablePreviousMonth}
-            title="Previous month"
-          >
-            <CaretLeft />
-          </button>
-          <button onClick={handleNextMonth} title="Next month">
-            <CaretRight />
-          </button>
-        </CalendarActions>
-      </CalendarHeader>
-      <CalendarBody>
-        <thead>
-          <tr>
-            {shortWeekDays.map((weekDay) => {
-              return <th key={weekDay}>{weekDay}.</th>
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {calendarWeeks.map(({ week, days }) => {
-            return (
-              <tr key={week}>
-                {days.map(({ date, disabled }) => {
-                  return (
-                    <td key={date.toString()}>
-                      <CalendarDay
-                        onClick={() => onDateSelected(date.toDate())}
-                        disabled={disabled}
-                      >
-                        {date.get('date')}
-                      </CalendarDay>
-                    </td>
-                  )
+    <>
+      <CalendarContainer>
+        <CalendarHeader>
+          <CalendarTitle>
+            {currentMonth} <span>{currentYear}</span>
+          </CalendarTitle>
+          <CalendarActions>
+            <button
+              onClick={handlePreviousMonth}
+              disabled={disablePreviousMonth}
+              title="Previous month"
+            >
+              <CaretLeft />
+            </button>
+            <button onClick={handleNextMonth} title="Next month">
+              <CaretRight />
+            </button>
+          </CalendarActions>
+        </CalendarHeader>
+        {loadingCalendar ? (
+          <SkeletonCalendar />
+        ) : (
+          <CalendarBody>
+            <thead>
+              <tr>
+                {shortWeekDays.map((weekDay) => {
+                  return <th key={weekDay}>{weekDay}.</th>
                 })}
               </tr>
-            )
-          })}
-        </tbody>
-      </CalendarBody>
-    </CalendarContainer>
+            </thead>
+            <tbody>
+              {calendarWeeks.map(({ week, days }) => {
+                return (
+                  <tr key={week}>
+                    {days.map(({ date, disabled }) => {
+                      return (
+                        <td key={date.toString()}>
+                          <CalendarDay
+                            onClick={() => onDateSelected(date.toDate())}
+                            disabled={disabled}
+                          >
+                            {date.get('date')}
+                          </CalendarDay>
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </CalendarBody>
+        )}
+      </CalendarContainer>
+    </>
   )
 }

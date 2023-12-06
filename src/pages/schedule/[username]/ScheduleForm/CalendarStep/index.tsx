@@ -1,6 +1,7 @@
 import { Calendar } from '@/Components/Calendar'
 import {
   Container,
+  SkeletonTimePickerItem,
   TimePicker,
   TimePickerHeader,
   TimePickerItem,
@@ -23,6 +24,7 @@ interface CalendarStepProps {
 
 export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [loadingTimeIntervals, setLoadingTimeIntervals] = useState(true)
 
   const router = useRouter()
 
@@ -41,11 +43,14 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
   const { data: availability } = useQuery<Availability>({
     queryKey: ['availability', selectedDateWithoutTime],
     queryFn: async () => {
+      setLoadingTimeIntervals(true)
       const response = await api.get(`/users/${username}/availability`, {
         params: {
           date: selectedDateWithoutTime,
         },
       })
+
+      setLoadingTimeIntervals(false)
       return response.data
     },
     enabled: !!selectedDate,
@@ -60,9 +65,6 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
     const isTimeBlocked = blockedTimes?.some(
       (blockedTime) => new Date(blockedTime.date).getHours() === time,
     )
-    console.log({ blockedTimes, time })
-
-    // const isTimeInPast = dayjs(selectedDate).set('hour', time).isBefore(dayjs())
 
     const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
 
@@ -87,17 +89,26 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
             {weekDay} <span> {describedDate}</span>
           </TimePickerHeader>
           <TimePickerList>
-            {availability?.possibleTimes?.map((hour) => {
-              return (
-                <TimePickerItem
-                  key={hour}
-                  onClick={() => handleSelectTime(hour)}
-                  disabled={!availableTimes?.includes(hour)}
-                >
-                  {String(hour).padStart(2, '0')}:00h
-                </TimePickerItem>
-              )
-            })}
+            {loadingTimeIntervals ? (
+              <>
+                <SkeletonTimePickerItem />
+                <SkeletonTimePickerItem />
+                <SkeletonTimePickerItem />
+                <SkeletonTimePickerItem />
+              </>
+            ) : (
+              availability?.possibleTimes?.map((hour) => {
+                return (
+                  <TimePickerItem
+                    key={hour}
+                    onClick={() => handleSelectTime(hour)}
+                    disabled={!availableTimes?.includes(hour)}
+                  >
+                    {String(hour).padStart(2, '0')}:00h
+                  </TimePickerItem>
+                )
+              })
+            )}
           </TimePickerList>
         </TimePicker>
       )}

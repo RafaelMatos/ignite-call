@@ -1,4 +1,4 @@
-import { globalCss } from '@ignite-ui/react'
+import { globalCss, keyframes, styled } from '@ignite-ui/react'
 
 export const globalStyles = globalCss({
   '*': {
@@ -26,5 +26,14 @@ export const globalStyles = globalCss({
     'background-color': '$ignite500',
     'border-radius': '14px',
     opacity: '0.5',
+  },
+})
+
+export const skeletonAnimation = keyframes({
+  '0%': {
+    backgroundPosition: '-200px 0',
+  },
+  '100%': {
+    backgroundPosition: 'calc(200px + 100%) 0',
   },
 })

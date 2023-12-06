@@ -1,3 +1,4 @@
+import { skeletonAnimation } from '@/styles/global'
 import { Box, styled, Text } from '@ignite-ui/react'
 
 export const Container = styled(Box, {
@@ -76,4 +77,16 @@ export const TimePickerItem = styled('button', {
   '&:focus': {
     boxShadow: '0 0 0 2px $colors$gray100',
   },
+})
+
+export const SkeletonTimePickerItem = styled('div', {
+  animation: `${skeletonAnimation} 1300ms ease-in-out infinite`,
+  backgroundColor: '$ignite600',
+  backgroundImage: 'linear-gradient(90deg, $gray800,$gray700,$gray800)',
+  display: 'flex',
+  backgroundSize: '200px 100%',
+  padding: '$4 $4',
+  textAlign: 'center',
+  cursor: 'pointer',
+  borderRadius: '$sm',
 })
