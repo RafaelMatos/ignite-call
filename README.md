@@ -1,8 +1,16 @@
 # Ignite Call📅
 
-Projeto em desenvolvimento no 6º e ultimo módulo da trilha React do curso Ignite na Rocketseat🚀 , utilizando o <a href="https://github.com/RafaelMatos/design-system2" target="_blank">Design System</a> também desenvolvido durante o curso;
+Ignite Call é uma aplicação Full-stack de agendamentos que permite aos usuários compartilhar seu calendário e permitir que outros reservem horários disponíveis. A aplicação está sendo desenvolvida com React, Next.js e TypeScript e utiliza o <a href="https://github.com/RafaelMatos/design-system2" target="_blank">Design System</a> desenvolvido durante o curso da Rocketseat. Nela foi desenvolvido rotas autenticadas no Next.js, integração com Google Calendar, validações , conceito de Backend-for-Frontend e já conta com as seguintes funcionalidades:
+<ul>
+    <li>Registro e login de usuários</li>
+    <li>Conexão com o Google Calendar</li>
+    <li>Definição de intervalos de horários disponíveis</li>
+    <li>Atualização do perfil do usuário</li>
+    <li>Agendamento de horários</li>
+</ul>
 
-Utilizando nosso Design System, vamos criar uma aplicação completa até o deploy. Abordaremos rotas autenticadas no Next.js, integração com Google Calendar, validações , conceito de Backend-for-Frontend e muito mais!
+<a href="https://ignite-call-rm.vercel.app/">Acesse a aplicação</a>
+
 
 <img src='./src/assets/tela.gif' alt='gif da tela da aplicação Ignite Call'>
 
