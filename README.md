@@ -33,6 +33,7 @@ Ignite Call é uma aplicação Full-stack de agendamentos que permite aos usuár
 - NextAuth.js
 - DayJs
 - Google Apis
+- Cloudinary
 
 ## Atualizações 🔃
 
@@ -94,7 +95,9 @@ Ignite Call é uma aplicação Full-stack de agendamentos que permite aos usuár
 
   - Salvando agendamento no banco de dados;
 
-  - Criando evento no Google Calendar do usuário.
+  - Criando evento no Google Calendar do usuário;
+
+  - Fazendo update de avatar e upload no Cloudinary.
 
   <img src='./src/assets/update.gif' alt='gif da tela da aplicação Ignite Call'>
   
