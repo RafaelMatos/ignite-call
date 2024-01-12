@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma'
 
 const updateProfileBodySchema = z.object({
   bio: z.string(),
+  avatarUrl: z.string().nullish(),
 })
 export default async function handle(
   req: NextApiRequest,
@@ -25,14 +26,19 @@ export default async function handle(
     return res.status(401).end()
   }
 
-  const { bio } = updateProfileBodySchema.parse(req.body)
+  const { bio, avatarUrl } = updateProfileBodySchema.parse(req.body)
 
+  let avatarUrlToSave = avatarUrl || session.user.avatar_url
+  if (!avatarUrl) {
+    avatarUrlToSave = session.user.avatar_url
+  }
   await prisma.user.update({
     where: {
       id: session.user.id,
     },
     data: {
       bio,
+      avatar_url: avatarUrlToSave,
     },
   })
 
