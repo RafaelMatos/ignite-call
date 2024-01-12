@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '@/lib/prisma'
 import { ScheduleForm } from './ScheduleForm'
 import { NextSeo } from 'next-seo'
+import { useMediaPicker } from '@/hooks/useMediaPicker'
 
 interface ScheduleProps {
   user: {
@@ -14,12 +15,13 @@ interface ScheduleProps {
 }
 
 export default function Schedule({ user }: ScheduleProps) {
+  const { preview } = useMediaPicker()
   return (
     <>
       <NextSeo title={`Agendar com ${user.name} | Ignite Call`} />
       <Container>
         <UserHeader>
-          <Avatar src={user?.avatarUrl} />
+          <Avatar src={preview || user?.avatarUrl} />
           <Heading>{user?.name}</Heading>
           <Text>{user?.bio}</Text>
         </UserHeader>

@@ -42,7 +42,7 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
-  const { fileToUpload } = useMediaPicker()
+  const { fileToUpload, handleSetPreview } = useMediaPicker()
   const [newImageUrl, setNewImageUrl] = useState<string | null>(null)
 
   const session = useSession()
@@ -73,10 +73,7 @@ export default function UpdateProfile() {
         .post(`image/upload`, formData)
         .then((response) => {
           if (response.data.secure_url) {
-            console.log(
-              'if (response.data.secure_url)',
-              response.data.secure_url,
-            )
+            handleSetPreview(response.data.secure_url)
             api.put('/users/profile', {
               bio: data.bio,
               avatarUrl: response.data.secure_url,
